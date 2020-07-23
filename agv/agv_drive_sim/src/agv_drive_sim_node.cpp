@@ -140,20 +140,20 @@ void AgvDriveNode::invKinematics(const Eigen::Vector3d & _pt)
         
         //center radius, center steering and offset
         rc = xdot/thdot; //rc = xdot/thdot
-        sc = asin( axes_separation_/(2*rc) );
-        dd = axes_separation_/(2*tan(sc)) - axis_width_/2;
+        sc = asin( axes_separation_/(2*rc) ); // Eq.1
+        dd = axes_separation_/(2*tan(sc)) - axis_width_/2; // Eq.2
         
         //inner and outer steering
-        si = atan( axes_separation_/(2*dd) );
-        so = atan( axes_separation_/(2*(axis_width_+dd)) );
+        si = atan( axes_separation_/(2*dd) ); //Eq.3
+        so = atan( axes_separation_/(2*(axis_width_+dd)) ); //Eq.6
         
         //inner and outer curvature radius
-        ri = axes_separation_/(2*sin(si));
-        ro = axes_separation_/(2*sin(so));
+        ri = axes_separation_/(2*sin(si)); //Eq.4
+        ro = axes_separation_/(2*sin(so)); //Eq.7
         
         //inner and outer wheel rotational rates
-        wi = thdot*ri/wheel_radius_;
-        wo = thdot*ro/wheel_radius_;
+        wi = thdot*ri/wheel_radius_; //Eq.5
+        wo = thdot*ro/wheel_radius_; //Eq.8
         
         if ( _pt(2) > 0 ) //vehicle positive turn, inner wheels are left side ones
         {
